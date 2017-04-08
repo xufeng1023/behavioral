@@ -12,7 +12,7 @@ class ExampleTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_login()
+    public function test_login_model()
     {
         $note = factory('App\Questions')->create();
         $this->be($note->user);
