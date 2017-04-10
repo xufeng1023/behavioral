@@ -65,6 +65,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     Reset Password
                                 </button>
+                                <hr>
+                                <a href="{{ url('/') }}">Go Login</a>
                             </div>
                         </div>
                     </form>
