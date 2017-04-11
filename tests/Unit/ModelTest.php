@@ -8,13 +8,14 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ExampleTest extends TestCase
 {
+	use DatabaseMigrations;
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function testBasicTest()
+    public function test_answers_belong_to_their_owner()
     {
-        $this->assertTrue(true);
+        $this->assertInstanceOf('App\User', $this->question()->user);
     }
 }
