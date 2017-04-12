@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,7 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        
+        return Questions::where('user_id', auth()->user()->id)->get();
     }
 
     /**

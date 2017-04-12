@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="col-md-9 col-sm-8">
-            {{ count(auth()->user()->questions) }}
+            <example></example>
         </div>
     </div>
 </div>
