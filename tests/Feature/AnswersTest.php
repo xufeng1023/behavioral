@@ -19,15 +19,15 @@ class ExampleTest extends TestCase
     public function test_save_answer_validation()
     {
     	$this->login();
-    	$keys = ['quest_sleep','quest_day','quest_meal'];
-    	$this->post('/questions', array_fill_keys($keys, null))
+    	$keys = ['quest_sleep','quest_mood','quest_meal'];
+    	$this->post('/answers', array_fill_keys($keys, null))
     		->assertSessionHasErrors($keys);
     }
 
     public function test_an_authenticated_user_can_only_see_his_own_answers()
     {
-    	$myAnswer = $this->question(['user_id' => $this->login()]);
-    	$notMyAnswer = $this->question();
+    	$myAnswer = $this->answer(['user_id' => $this->login()]);
+    	$notMyAnswer = $this->answer();
     	$this->get('/home')
     		->assertSee($myAnswer->user->name)
     		->assertDontSee($notMyAnswer->user->name);

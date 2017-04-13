@@ -13,9 +13,9 @@ abstract class TestCase extends BaseTestCase
     	return factory("App\\$model")->create($attr);
     }
 
-    protected function question($attr = [])
+    protected function answer($attr = [])
     {
-    	return $this->create('Questions', $attr);
+    	return $this->create('Answers', $attr);
     }
 
     protected function user($attr = [])

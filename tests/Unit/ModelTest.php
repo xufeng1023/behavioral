@@ -16,6 +16,6 @@ class ExampleTest extends TestCase
      */
     public function test_answers_belong_to_their_owner()
     {
-        $this->assertInstanceOf('App\User', $this->question()->user);
+        $this->assertInstanceOf('App\User', $this->answer()->user);
     }
 }

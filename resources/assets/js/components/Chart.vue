@@ -48,7 +48,7 @@
             },
             getData() {
                 this.resetData();
-                axios.get('/questions?date='+this.date+'&cat='+this.cat)
+                axios.get('/answers?date='+this.date+'&cat='+this.cat)
                     .then(response => {
                         $.each(response.data, function(index, val) {
                             let key = (val.created_at.split('-'))[2] - 1;

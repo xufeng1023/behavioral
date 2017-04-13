@@ -16535,7 +16535,7 @@ module.exports = function(module) {
 
 __webpack_require__(147);
 
-Vue.component('chart', __webpack_require__(213));
+Vue.component('chart', __webpack_require__(199));
 
 var app = new Vue({
     el: '#app'
@@ -17389,7 +17389,120 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 146 */,
+/* 146 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            date: new Date().toJSON().slice(0, 7),
+            cat: 'sleep',
+            chart: null,
+            datasets: [{
+                label: '',
+                data: [],
+                backgroundColor: 'transparent',
+                borderColor: '#4BC0C0'
+            }],
+            yLabels: {
+                sleep: ['Less than 6 hours', '7 hours', '8 hours', '9 hours', 'More than 10 hours'],
+                mood: ['Bad', 'Not much', 'Good', 'Great', 'Excellent'],
+                meal: ['None', 'One meals', 'Two meals', 'Three meals', 'Too much']
+            }
+        };
+    },
+
+    methods: {
+        resetData: function resetData() {
+            this.datasets[0].data = [];
+        },
+        getData: function getData() {
+            var _this = this;
+
+            this.resetData();
+            axios.get('/answers?date=' + this.date + '&cat=' + this.cat).then(function (response) {
+                $.each(response.data, function (index, val) {
+                    var key = val.created_at.split('-')[2] - 1;
+                    this.datasets[0].data[key] = val['quest_' + this.cat];
+                }.bind(_this));
+            }).then(function () {
+                return _this.setChart();
+            });
+        },
+        fillInitValue: function fillInitValue() {
+            this.datasets[0].data = this.DaysAry().fill(null);
+        },
+        DaysAry: function DaysAry() {
+            return _.range(1, this.totalDays);
+        },
+        setChart: function setChart() {
+            if (this.chart) this.chart.destroy();
+            this.datasets[0].label = this.cat;
+            var data = {
+                labels: this.DaysAry(),
+                datasets: this.datasets
+            };
+            var yLabelsAry = this.yLabels[this.cat];
+            this.chart = new Chart(document.getElementById("myChart"), {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                stepSize: 1,
+                                max: 4,
+                                beginAtZero: true,
+                                callback: function callback(value, index, values) {
+                                    return yLabelsAry[value];
+                                }
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    },
+    computed: {
+        totalDays: function totalDays() {
+            var dateAry = this.date.split('-');
+            return new Date(dateAry[0], dateAry[1], 0).getDate() + 1;
+        }
+    },
+    mounted: function mounted() {
+        this.fillInitValue();
+        this.getData();
+    }
+});
+
+/***/ }),
 /* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -59884,7 +59997,40 @@ module.exports = webpackContext;
 webpackContext.id = 198;
 
 /***/ }),
-/* 199 */,
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(200)(
+  /* script */
+  __webpack_require__(146),
+  /* template */
+  __webpack_require__(201),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\xu feng\\Desktop\\daily\\resources\\assets\\js\\components\\Chart.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Chart.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-727567ed", Component.options)
+  } else {
+    hotAPI.reload("data-v-727567ed", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
 /* 200 */
 /***/ (function(module, exports) {
 
@@ -59942,7 +60088,94 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 201 */,
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.date),
+      expression: "date"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "month"
+    },
+    domProps: {
+      "value": _vm.date,
+      "value": (_vm.date)
+    },
+    on: {
+      "change": _vm.getData,
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.date = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.cat),
+      expression: "cat"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": [function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.cat = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }, _vm.getData]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "sleep"
+    }
+  }, [_vm._v("Sleep")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "mood"
+    }
+  }, [_vm._v("Mood")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "meal"
+    }
+  }, [_vm._v("Meal")])])])])]), _vm._v(" "), _c('canvas', {
+    attrs: {
+      "id": "myChart",
+      "width": "400",
+      "height": "200"
+    }
+  })])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-727567ed", module.exports)
+  }
+}
+
+/***/ }),
 /* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -69277,250 +69510,6 @@ module.exports = Vue$3;
 __webpack_require__(126);
 module.exports = __webpack_require__(127);
 
-
-/***/ }),
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            date: new Date().toJSON().slice(0, 7),
-            cat: 'sleep',
-            chart: null,
-            datasets: [{
-                label: '',
-                data: [],
-                backgroundColor: 'transparent',
-                borderColor: '#4BC0C0'
-            }],
-            yLabels: {
-                sleep: ['Less than 6 hours', '7 hours', '8 hours', '9 hours', 'More than 10 hours'],
-                mood: ['Bad', 'Not much', 'Good', 'Great', 'Excellent'],
-                meal: ['None', 'One meals', 'Two meals', 'Three meals', 'Too much']
-            }
-        };
-    },
-
-    methods: {
-        resetData: function resetData() {
-            this.datasets[0].data = [];
-        },
-        getData: function getData() {
-            var _this = this;
-
-            this.resetData();
-            axios.get('/questions?date=' + this.date + '&cat=' + this.cat).then(function (response) {
-                $.each(response.data, function (index, val) {
-                    var key = val.created_at.split('-')[2] - 1;
-                    this.datasets[0].data[key] = val['quest_' + this.cat];
-                }.bind(_this));
-            }).then(function () {
-                return _this.setChart();
-            });
-        },
-        fillInitValue: function fillInitValue() {
-            this.datasets[0].data = this.DaysAry().fill(null);
-        },
-        DaysAry: function DaysAry() {
-            return _.range(1, this.totalDays);
-        },
-        setChart: function setChart() {
-            if (this.chart) this.chart.destroy();
-            this.datasets[0].label = this.cat;
-            var data = {
-                labels: this.DaysAry(),
-                datasets: this.datasets
-            };
-            var yLabelsAry = this.yLabels[this.cat];
-            this.chart = new Chart(document.getElementById("myChart"), {
-                type: 'line',
-                data: data,
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                stepSize: 1,
-                                max: 4,
-                                beginAtZero: true,
-                                callback: function callback(value, index, values) {
-                                    return yLabelsAry[value];
-                                }
-                            }
-                        }]
-                    }
-                }
-            });
-        }
-    },
-    computed: {
-        totalDays: function totalDays() {
-            var dateAry = this.date.split('-');
-            return new Date(dateAry[0], dateAry[1], 0).getDate() + 1;
-        }
-    },
-    mounted: function mounted() {
-        this.fillInitValue();
-        this.getData();
-    }
-});
-
-/***/ }),
-/* 213 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(200)(
-  /* script */
-  __webpack_require__(212),
-  /* template */
-  __webpack_require__(214),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Users\\xu feng\\Desktop\\daily\\resources\\assets\\js\\components\\Chart.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Chart.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-727567ed", Component.options)
-  } else {
-    hotAPI.reload("data-v-727567ed", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 214 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-sm-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.date),
-      expression: "date"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "type": "month"
-    },
-    domProps: {
-      "value": _vm.date,
-      "value": (_vm.date)
-    },
-    on: {
-      "change": _vm.getData,
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.date = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.cat),
-      expression: "cat"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": [function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.cat = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }, _vm.getData]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "sleep"
-    }
-  }, [_vm._v("Sleep")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mood"
-    }
-  }, [_vm._v("Mood")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "meal"
-    }
-  }, [_vm._v("Meal")])])])])]), _vm._v(" "), _c('canvas', {
-    attrs: {
-      "id": "myChart",
-      "width": "400",
-      "height": "200"
-    }
-  })])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-727567ed", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

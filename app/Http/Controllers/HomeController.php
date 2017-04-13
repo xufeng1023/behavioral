@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Questions;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,7 +23,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $answers = $request->user()->questions()->today()->first();
-        return view('home', compact('answers'));
+        //$answers = (new \App\Answers)->today();
+        return view('home');
     }
 }

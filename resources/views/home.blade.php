@@ -6,7 +6,7 @@
         <div class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form method="POST" action="/questions">
+                    <form method="POST" action="/answers">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>how many hours did you sleep last night?</label>
@@ -40,6 +40,10 @@
                                 <option value="4">Too much</option>
                             </select>
                             @include('errors.one', ['field' => 'quest_meal'])
+                        </div>
+                        <div class="form-group">
+                            <label>Try different dates for tests</label>
+                            <input type="date" class="form-control" name="created_at" value="{{ date('Y-m-d') }}">
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>

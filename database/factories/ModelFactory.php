@@ -23,11 +23,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Questions::class, function ($faker) {
+$factory->define(App\Answers::class, function ($faker) {
     return [
         'quest_sleep' => rand(5, 10),
         'quest_meal' => rand(1, 3),
-        'quest_day' => 'good',
+        'quest_mood' => 'good',
         'user_id' => function () {
             return factory(App\User::class)->create()->id;
         }
