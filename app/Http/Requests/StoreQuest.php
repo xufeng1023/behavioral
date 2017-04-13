@@ -25,8 +25,8 @@ class StoreQuest extends FormRequest
     public function rules()
     {
         return [
-            'quest_sleep' => 'integer|between:6,10',
-            'quest_day' => 'in:bad,ok,good,great',
+            'quest_sleep' => 'integer|between:0,4',
+            'quest_mood' => 'integer|between:0,4',
             'quest_meal' => 'integer|between:0,4'
         ];
     }
@@ -36,7 +36,8 @@ class StoreQuest extends FormRequest
         return [
             'quest_sleep.integer' => 'How many hours exactly?',
             'quest_sleep.between' => 'How many hours exactly?',
-            'quest_day.in' => 'How was your day again?',
+            'quest_mood.integer' => 'How was your day again?',
+            'quest_mood.between' => 'How was your day again?',
             'quest_meal.integer' => 'Please answer the question seriously',
             'quest_meal.between' => 'Please answer the question seriously'
         ];

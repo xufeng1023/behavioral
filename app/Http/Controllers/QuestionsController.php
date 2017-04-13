@@ -17,9 +17,9 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Questions::where('user_id', auth()->user()->id)->get();
+        return $request->user()->questions()->month($request)->get();
     }
 
     /**
@@ -39,8 +39,15 @@ class QuestionsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreQuest $request)
-    {
-        $request->user()->questions()->create($request->all());
+    {   
+        Questions::updateOrCreate(
+            [
+                'user_id' => $request->user()->id,
+                'created_at' => date('Y-m-d')
+            ], 
+            $request->all()
+        );
+
         return back();
     }
 

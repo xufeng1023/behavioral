@@ -3,33 +3,32 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-3 col-sm-4">
+        <div class="col-md-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
- 
                 <div class="panel-body">
                     <form method="POST" action="/questions">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>how many hours did you sleep last night?</label>
                             <select class="form-control" name="quest_sleep">
-                                <option value="6">less than 6 hours</option>
-                                <option value="7">7 hours</option>
-                                <option value="8" selected="selected">8 hours</option>
-                                <option value="9">9 hours</option>
-                                <option value="10">more than 10 hours</option>
+                                <option value="0">less than 6 hours</option>
+                                <option value="1">7 hours</option>
+                                <option value="2" selected="selected">8 hours</option>
+                                <option value="3">9 hours</option>
+                                <option value="4">more than 10 hours</option>
                             </select>
                             @include('errors.one', ['field' => 'quest_sleep'])
                         </div>
                         <div class="form-group">
                             <label>How was your day?</label>
-                            <select class="form-control" name="quest_day">
-                                <option value="bad">Bad</option>
-                                <option value="ok">Not much</option>
-                                <option value="good" selected="selected">Good</option>
-                                <option value="great">Great</option>
+                            <select class="form-control" name="quest_mood">
+                                <option value="0">Bad</option>
+                                <option value="1">Not much</option>
+                                <option value="2" selected="selected">Good</option>
+                                <option value="3">Great</option>
+                                <option value="4">Excellent</option>
                             </select>
-                            @include('errors.one', ['field' => 'quest_day'])
+                            @include('errors.one', ['field' => 'quest_mood'])
                         </div>
                         <div class="form-group">
                             <label>How many meals did you eat today?</label>
@@ -47,8 +46,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 col-sm-8">
-            <example></example>
+        <div class="col-md-9">
+            <chart></chart>
         </div>
     </div>
 </div>

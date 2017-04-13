@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->tinyInteger('quest_sleep');
-            $table->string('quest_day');
+            $table->tinyInteger('quest_mood');
             $table->tinyInteger('quest_meal');
             $table->timestamps();
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Questions;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +22,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $answers = $request->user()->questions()->today()->first();
+        return view('home', compact('answers'));
     }
 }
